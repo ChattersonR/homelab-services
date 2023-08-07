@@ -1,0 +1,9 @@
+services:
+  nginx-proxy:
+    image: nginx
+    volumes:
+      - /opt/appdata/nginx:/etc/nginx:ro
+    network_mode: "host"
+    environment:
+      - NGINX_HOST=candyman
+      - NGINX_PORT=8008

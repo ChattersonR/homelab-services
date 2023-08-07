@@ -1,0 +1,9 @@
+version: '3.5'
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - /opt/appdata/vaultwarden:/data
+    restart: 'unless-stopped'

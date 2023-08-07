@@ -1,0 +1,29 @@
+version: '2'
+services:
+  plex:
+    image: plexinc/pms-docker
+    container_name: plex
+    volumes:
+      - /opt/appdata/plex:/config
+      - /srv/01e6ac58-fb44-48c7-a5da-33723c61436b/media:/data
+    network_mode: host
+    restart: always
+    environment:
+      - PLEX_GID=100
+  plexpy:
+    image: linuxserver/plexpy
+    container_name: plexpy
+    depends_on:
+      - plex
+    volumes:
+      - /opt/appdata/plexpy:/config
+      - /srv/dev-disk-by-id-ata-ST31500341AS_9VS2VX7N-part1/appdata/plex/Library/Application Support/Plex Media Server/Logs:/logs:ro
+    ports:
+      - 27029:8181
+    links:
+      - plex
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=America/New York
